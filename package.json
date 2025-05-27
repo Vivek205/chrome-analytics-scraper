@@ -3,6 +3,7 @@
     "clean": "rm -rf dist",
     "build": "pnpm run clean && tsc",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "dev:once": "ts-node src/index.ts",
     "start": "node ./dist/index.js",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",

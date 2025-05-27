@@ -1,11 +1,11 @@
 import puppeteer from "puppeteer";
 import { parseCompactNumber } from "../lib/expandNumberValues";
-import type { ScrapedData } from "./types";
+import type { ScrapedMetrics } from "./types";
 import { isValidURL } from "../lib/isValidURL";
 
 export const scrapeExtensionData = async (
   url: string
-): Promise<ScrapedData> => {
+): Promise<ScrapedMetrics> => {
   if (!isValidURL(url)) {
     throw new Error(`Invalid URL: ${url}`);
   }

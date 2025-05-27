@@ -1,6 +1,6 @@
 import { describe, it, assert, vi, expect } from "vitest";
 import { scrapeExtensionData } from "./scrapeExtensionData";
-import { ScrapedData } from "./types";
+import { ScrapedMetrics } from "./types";
 import * as isValidURLMod from "../lib/isValidURL";
 
 vi.spyOn(isValidURLMod, "isValidURL").mockReturnValue(true);
@@ -10,7 +10,7 @@ const testURL =
 
 describe("ScrapeExtensionData", () => {
   it("should return the correct scraped Data", async () => {
-    const expectedResponse: ScrapedData = {
+    const expectedResponse: ScrapedMetrics = {
       activeUsers: 2_000_000,
       ratingsCount: 2_900,
       ratingsValue: 4.7,
