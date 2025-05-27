@@ -1,7 +1,7 @@
 import { describe, it, assert, vi, expect } from "vitest";
-import { scrapeExtensionData } from "./scrapeExtensionData.js";
-import { ScrapedData } from "./types.js";
-import * as isValidURLMod from "../lib/isValidURL.js";
+import { scrapeExtensionData } from "./scrapeExtensionData";
+import { ScrapedData } from "./types";
+import * as isValidURLMod from "../lib/isValidURL";
 
 vi.spyOn(isValidURLMod, "isValidURL").mockReturnValue(true);
 

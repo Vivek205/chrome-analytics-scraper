@@ -2,34 +2,33 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 model Extension {
-  id          Int              @id @default(autoincrement())
-  extensionId String          @unique @map("extension_id") @db.VarChar(32)
-  name        String          @db.VarChar(255)
-  url         String          @db.VarChar(1024)
-  createdAt   DateTime        @default(now()) @map("created_at")
-  updatedAt   DateTime        @updatedAt @map("updated_at")
-  metrics     ExtensionMetric[]
+    id        String            @id @default(uuid())
+    name      String            @db.VarChar(255)
+    url       String            @db.VarChar(1024)
+    createdAt DateTime          @default(now()) @map("created_at")
+    updatedAt DateTime          @updatedAt @map("updated_at")
+    metrics   ExtensionMetric[] @relation("ExtensionToMetrics")
 }
 
 model ExtensionMetric {
-  id           Int       @id @default(autoincrement())
-  extensionId  String    @map("extension_id")
-  activeUsers  Int?      @map("active_users")
-  ratingsCount Int?      @map("ratings_count")
-  ratingsValue Float?    @map("ratings_value")
-  scrapedAt    DateTime  @default(now()) @map("scraped_at")
-  extension    Extension @relation(fields: [extensionId], references: [extensionId])
+    id           String    @id @default(uuid())
+    extensionId  String    @map("extension_id")
+    activeUsers  Int?      @map("active_users")
+    ratingsCount Int?      @map("ratings_count")
+    ratingsValue Float?    @map("ratings_value")
+    scrapedAt    DateTime  @default(now()) @map("scraped_at")
+    extension    Extension @relation("ExtensionToMetrics", fields: [extensionId], references: [id], onDelete: Cascade)
 
-  @@unique([extensionId, scrapedAt])
-  @@index([extensionId])
-  @@index([scrapedAt])
-} 
+    @@unique([extensionId, scrapedAt])
+    @@index([extensionId])
+    @@index([scrapedAt])
+}

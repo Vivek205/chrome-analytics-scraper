@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer";
-import { parseCompactNumber } from "../lib/expandNumberValues.js";
-import type { ScrapedData } from "./types.js";
-import { isValidURL } from "../lib/isValidURL.js";
+import { parseCompactNumber } from "../lib/expandNumberValues";
+import type { ScrapedData } from "./types";
+import { isValidURL } from "../lib/isValidURL";
 
 export const scrapeExtensionData = async (
   url: string

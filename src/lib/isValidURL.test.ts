@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { isValidURL } from "./isValidURL.js";
+import { isValidURL } from "./isValidURL";
 
 describe("IsValidURL", () => {
   it("should return true for valid URL", () => {
