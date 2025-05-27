@@ -1,16 +1,15 @@
 {
   "compilerOptions": {
     "lib": ["es2023", "dom"],
-    "module": "nodenext",
+    "module": "CommonJS",
     "target": "es2022",
-
     "strict": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "moduleResolution": "node16",
-    "outDir": "./dist",
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*", "globalTypes/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["src", "globalTypes"],
+  "exclude": ["node_modules", "dist"]
 }

@@ -1,7 +1,8 @@
-import { scrapeExtensionData } from "./scrapeExtensionData/index.js";
+import { scrapeExtensionData } from "./scrapeExtensionData/scrapeExtensionData.js";
 
-const scrapedData = await scrapeExtensionData(
-  "https://chromewebstore.google.com/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone?hl=en&authuser=1"
-);
-
-console.log("scraped Data", scrapedData);
+const scrapeData = async () => {
+  const scrapedData = await scrapeExtensionData(
+    "https://chromewebstore.google.com/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone?hl=en&authuser=1"
+  );
+  console.log("scraped Data", scrapedData);
+};

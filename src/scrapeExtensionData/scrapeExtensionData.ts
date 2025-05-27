@@ -15,12 +15,6 @@ export const scrapeExtensionData = async (
 
   await page.setViewport({ width: 1080, height: 1024 });
   await page.goto(url);
-  console.time("Evaluated the DOM tree in");
-
-  // page.on("console", (msg) => {
-  //   console.debug("[BROWSER]");
-  //   console.debug(`${msg.text()}`);
-  // });
 
   let { ratingsValue, ratingsCountText, activeUsers } = await page.$eval(
     "body",
@@ -57,9 +51,7 @@ export const scrapeExtensionData = async (
   );
 
   const ratingsCount = parseCompactNumber(ratingsCountText as string);
-
-  console.table({ ratingsCount, ratingsValue, activeUsers });
-
+  
   await browser.close();
 
   return { activeUsers, ratingsValue, ratingsCount };

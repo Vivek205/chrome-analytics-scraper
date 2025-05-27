@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Extension {
+  id          Int              @id @default(autoincrement())
+  extensionId String          @unique @map("extension_id") @db.VarChar(32)
+  name        String          @db.VarChar(255)
+  url         String          @db.VarChar(1024)
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime        @updatedAt @map("updated_at")
+  metrics     ExtensionMetric[]
+}
+
+model ExtensionMetric {
+  id           Int       @id @default(autoincrement())
+  extensionId  String    @map("extension_id")
+  activeUsers  Int?      @map("active_users")
+  ratingsCount Int?      @map("ratings_count")
+  ratingsValue Float?    @map("ratings_value")
+  scrapedAt    DateTime  @default(now()) @map("scraped_at")
+  extension    Extension @relation(fields: [extensionId], references: [extensionId])
+
+  @@unique([extensionId, scrapedAt])
+  @@index([extensionId])
+  @@index([scrapedAt])
+} 
