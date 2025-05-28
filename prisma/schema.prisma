@@ -15,7 +15,7 @@ model User {
     name       String          @db.VarChar(255)
     email      String          @db.VarChar(255)
     createdAt  DateTime        @default(now()) @map("created_at")
-    updatedAt  DateTime        @updatedAt @default(now()) @map("updated_at")
+    updatedAt  DateTime        @default(now()) @updatedAt @map("updated_at")
     extensions UserExtension[]
 }
 
@@ -24,7 +24,7 @@ model Extension {
     name      String            @db.VarChar(255)
     url       String            @db.VarChar(1024)
     createdAt DateTime          @default(now()) @map("created_at")
-    updatedAt DateTime          @updatedAt @default(now()) @map("updated_at")
+    updatedAt DateTime          @default(now()) @updatedAt @map("updated_at")
     metrics   ExtensionMetric[] @relation("ExtensionToMetrics")
     users     UserExtension[]
 }
@@ -33,7 +33,7 @@ model UserExtension {
     userId      String
     extensionId String
     createdAt   DateTime @default(now()) @map("created_at")
-    updatedAt   DateTime @updatedAt @default(now()) @map("updated_at")
+    updatedAt   DateTime @default(now()) @updatedAt @map("updated_at")
 
     user      User      @relation(fields: [userId], references: [id])
     extension Extension @relation(fields: [extensionId], references: [id])
