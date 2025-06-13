@@ -1,27 +1,18 @@
 {
-  "scripts": {
-    "clean": "rm -rf dist",
-    "build": "pnpm run clean && tsc",
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "dev:once": "ts-node src/index.ts",
-    "start": "node ./dist/index.js",
-    "test": "vitest",
-    "test:coverage": "vitest run --coverage",
-    "db:generate": "prisma generate",
-    "db:migrate": "prisma migrate dev",
-    "db:migrate-reset": "prisma migrate reset",
-    "db:add-extension": "ts-node src/scripts/addExtension.ts"
-  },
-  "devDependencies": {
-    "@vitest/coverage-v8": "3.1.2",
-    "ts-node": "^10.9.2",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.8.3",
-    "vitest": "^3.1.2"
-  },
-  "dependencies": {
-    "@prisma/client": "^6.8.2",
-    "prisma": "^6.8.2",
-    "puppeteer": "^24.6.1"
-  }
+	"name": "chrome-analytics-scraper",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev",
+		"start": "wrangler dev",
+		"test": "vitest",
+		"cf-typegen": "wrangler types"
+	},
+	"devDependencies": {
+		"@cloudflare/vitest-pool-workers": "^0.8.19",
+		"typescript": "^5.5.2",
+		"vitest": "~3.2.0",
+		"wrangler": "^4.20.0"
+	}
 }
