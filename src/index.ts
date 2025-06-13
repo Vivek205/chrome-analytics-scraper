@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-import { withAccelerate } from '@prisma/extension-accelerate';
-import { PrismaNeon } from '@prisma/adapter-neon';
+import { scraperController } from './controllers/scraper.controller';
 
 /**
  * Welcome to Cloudflare Workers! This is your first worker.
@@ -15,33 +13,15 @@ import { PrismaNeon } from '@prisma/adapter-neon';
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
-export interface Env {
-	DATABASE_URL: string;
-	DATABASE_URL_DIRECT: string;
-}
-
 export default {
 	async scheduled(controller, env, ctx) {
 		// This function is called on a schedule defined in `wrangler.jsonc`.
 		// You can use it to perform periodic tasks.
-		console.log('Scheduled task running');
+		await scraperController(env);
 	},
 	async fetch(request, env, ctx): Promise<Response> {
 		const path = new URL(request.url).pathname;
 
-		const adapter = new PrismaNeon({ connectionString: env.DATABASE_URL });
-		const prisma = new PrismaClient({
-			adapter,
-		}).$extends(withAccelerate());
-
-		const users = await prisma.user.findMany();
-
-		return Response.json(
-			users.map((user) => ({
-				id: user.id,
-				name: user.name,
-				email: user.email,
-			}))
-		);
+		return new Response('Hello, world! This is your Cloudflare Worker responding to a fetch request.');
 	},
 } satisfies ExportedHandler<Env>;
