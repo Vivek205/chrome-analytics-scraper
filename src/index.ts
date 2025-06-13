@@ -19,9 +19,7 @@ export default {
 		// You can use it to perform periodic tasks.
 		await scraperController(env);
 	},
-	async fetch(request, env, ctx): Promise<Response> {
-		const path = new URL(request.url).pathname;
-
-		return new Response('Hello, world! This is your Cloudflare Worker responding to a fetch request.');
+	async fetch(): Promise<Response> {
+		return new Response('OK');
 	},
 } satisfies ExportedHandler<Env>;
