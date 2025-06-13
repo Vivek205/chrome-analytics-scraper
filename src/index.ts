@@ -1,5 +1,6 @@
-import { PrismaClient } from '@prisma/client/edge';
+import { PrismaClient } from '@prisma/client';
 import { withAccelerate } from '@prisma/extension-accelerate';
+import { PrismaNeon } from '@prisma/adapter-neon';
 
 /**
  * Welcome to Cloudflare Workers! This is your first worker.
@@ -20,16 +21,27 @@ export interface Env {
 }
 
 export default {
+	async scheduled(controller, env, ctx) {
+		// This function is called on a schedule defined in `wrangler.jsonc`.
+		// You can use it to perform periodic tasks.
+		console.log('Scheduled task running');
+	},
 	async fetch(request, env, ctx): Promise<Response> {
 		const path = new URL(request.url).pathname;
 
+		const adapter = new PrismaNeon({ connectionString: env.DATABASE_URL });
 		const prisma = new PrismaClient({
-			datasourceUrl: env.DATABASE_URL,
+			adapter,
 		}).$extends(withAccelerate());
 
 		const users = await prisma.user.findMany();
 
-		console.log("Prisma Client initialized with Accelerate extension", users);
-		return new Response('Hello World!');
+		return Response.json(
+			users.map((user) => ({
+				id: user.id,
+				name: user.name,
+				email: user.email,
+			}))
+		);
 	},
 } satisfies ExportedHandler<Env>;
